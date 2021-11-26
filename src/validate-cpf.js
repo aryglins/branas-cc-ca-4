@@ -1,4 +1,4 @@
-function validate(str) {
+exports.validate = function(str) {
 
 	if (str !== null) {
         if (str !== undefined) {
@@ -58,7 +58,3 @@ function validate(str) {
 	} else return false;
 
 }
-
-console.log(validate("111.111.111-11"));
-console.log(validate("123.456.789-99"));
-console.log(validate("935.411.347-80"));
