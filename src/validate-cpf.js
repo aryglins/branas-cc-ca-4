@@ -1,27 +1,40 @@
 exports.validate = function(cpf) {
     const cpfStripped = removeNonDigitsAllowedChars(cpf);  
-    if (isNullOrUndefined(cpfStripped) || doesNotHaveCpfLength(cpfStripped)) {
+    if (validateInputCpfFormat(cpfStripped)) {
         return false;
     }
-    if (isStrWithSameDigits(cpfStripped)) {
-        return false;
-    }
-    if (!isOnlyDigitsString(cpfStripped)) {
-        return false;
-    }
-    let d1 = 0;  
-    let d2 = 0;
-    for (let nCount = 1; nCount < cpfStripped.length -1; nCount++) {  
-        const digito = parseInt(cpfStripped.substring(nCount -1, nCount));  							
-        d1 = d1 + ( 11 - nCount ) * digito;  
-        d2 = d2 + ( 12 - nCount ) * digito;
-    };  
-    const dg1 = calculateVerificationDigit(d1);  
-    d2 += 2 * dg1;
-    const dg2 = calculateVerificationDigit(d2);
-    let nDigVerific = cpfStripped.substring(cpfStripped.length-2, cpfStripped.length);  
-    const nDigResult = "" + dg1 + "" + dg2;  
-    return nDigVerific == nDigResult;
+    const expectedVerificationDigitOne = calculateVerificationDigitOne(cpfStripped);  
+    const expectedVerificationDigitTwo = calculateVerificationDigitTwo(cpfStripped, expectedVerificationDigitOne);
+    const verificationDigitOne = parseInt(cpfStripped[cpfStripped.length-2]);
+    const verificationDigitTwo = parseInt(cpfStripped[cpfStripped.length-1]);
+    return verificationDigitOne == expectedVerificationDigitOne && verificationDigitTwo == expectedVerificationDigitTwo;
+}
+
+function validateInputCpfFormat(cpfStripped) {
+    return isNullOrUndefined(cpfStripped) || doesNotHaveCpfLength(cpfStripped) || isStrWithSameDigits(cpfStripped || !isOnlyDigitsString(cpfStripped));
+}
+
+function calculateVerificationDigitOne(cpf) {
+    const calc = Array.from(cpf).map(char => parseInt(char)).reduce((acc, digit, i, cpf) => {
+        if(i < cpf.length - 2) {
+            return acc + (11 - (i + 1)) * digit;
+        }
+        return acc;
+    }, 0);
+    const remainder = (calc % 11);
+    return (remainder < 2) ? 0 : 11 - remainder;
+}
+
+function calculateVerificationDigitTwo(cpf, verificationDigitOne) {
+    const firstCalc = Array.from(cpf).map(char => parseInt(char)).reduce((acc, digit, i, cpf) => {
+        if(i < cpf.length - 2) {
+            return acc + (12 - (i + 1)) * digit;
+        }
+        return acc;
+    }, 0);
+    const secondCalc = firstCalc + 2 * verificationDigitOne;
+    const remainder = (secondCalc % 11);
+    return (remainder < 2) ? 0 : 11 - remainder;
 }
 
 function isOnlyDigitsString(cpfStripped) {
@@ -47,9 +60,4 @@ function doesNotHaveCpfLength(cpf) {
 
 function isNullOrUndefined(cpf) {
     return cpf == null || cpf == undefined;
-}
-
-function calculateVerificationDigit(d) {
-    const resto = (d % 11);
-    return (resto < 2) ? 0 : 11 - resto;
 }
