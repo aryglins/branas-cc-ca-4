@@ -7,7 +7,7 @@ exports.validate = function(cpf) {
     const expectedVerificationDigitTwo = calculateVerificationDigitTwo(cpfStripped, expectedVerificationDigitOne);
     const verificationDigitOne = parseInt(cpfStripped[cpfStripped.length-2]);
     const verificationDigitTwo = parseInt(cpfStripped[cpfStripped.length-1]);
-    return verificationDigitOne == expectedVerificationDigitOne && verificationDigitTwo == expectedVerificationDigitTwo;
+    return verificationDigitOne === expectedVerificationDigitOne && verificationDigitTwo === expectedVerificationDigitTwo;
 }
 
 function validateInputCpfFormat(cpfStripped) {
@@ -15,23 +15,15 @@ function validateInputCpfFormat(cpfStripped) {
 }
 
 function calculateVerificationDigitOne(cpf) {
-    const calc = Array.from(cpf).map(char => parseInt(char)).reduce((acc, digit, i, cpf) => {
-        if(i < cpf.length - 2) {
-            return acc + (11 - (i + 1)) * digit;
-        }
-        return acc;
-    }, 0);
+    const cpfWithoutVerificationDigits = cpf.substring(0, cpf.length - 2);
+    const calc = Array.from(cpfWithoutVerificationDigits).map(char => parseInt(char)).reduce((acc, digit, i) => acc + (11 - (i + 1)) * digit, 0);
     const remainder = (calc % 11);
     return (remainder < 2) ? 0 : 11 - remainder;
 }
 
 function calculateVerificationDigitTwo(cpf, verificationDigitOne) {
-    const firstCalc = Array.from(cpf).map(char => parseInt(char)).reduce((acc, digit, i, cpf) => {
-        if(i < cpf.length - 2) {
-            return acc + (12 - (i + 1)) * digit;
-        }
-        return acc;
-    }, 0);
+    const cpfWithoutVerificationDigits = cpf.substring(0, cpf.length - 2);
+    const firstCalc = Array.from(cpfWithoutVerificationDigits).map(char => parseInt(char)).reduce((acc, digit, i) => acc + (12 - (i + 1)) * digit, 0);
     const secondCalc = firstCalc + 2 * verificationDigitOne;
     const remainder = (secondCalc % 11);
     return (remainder < 2) ? 0 : 11 - remainder;
@@ -46,12 +38,11 @@ function isStrWithSameDigits(cpf) {
 }
 
 function removeNonDigitsAllowedChars(cpf) {
-    cpf = cpf
+    return cpf
         .replace('.', '')
         .replace('.', '')
         .replace('-', '')
         .replace(" ", "");
-    return cpf;
 }
 
 function doesNotHaveCpfLength(cpf) {
