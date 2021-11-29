@@ -1,4 +1,4 @@
-exports.validate_cpf = function(cpf) {
+exports.validateCpf = function(cpf) {
     if (validateCpfInputFormat(cpf)) {
         return false;
     }
@@ -27,7 +27,6 @@ function removeNonDigitsAllowedChars(cpf) {
         .replace('.', '')
         .replace('.', '')
         .replace('-', '')
-        .replace(" ", "");
 }
 
 function calculateVerificationDigitOne(cpfWithoutVerificationDigits) {
