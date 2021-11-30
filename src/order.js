@@ -6,7 +6,7 @@ exports.Order = class Order {
         this.items = items;
     }
 
-    getTotal() {
-        return 0;
+    getTotal(discount) {
+        return this.items.reduce((total, item) => total + item.price*item.quantity, 0) * (1 - discount);
     }
 }
