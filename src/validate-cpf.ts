@@ -1,8 +1,8 @@
-exports.validateCpf = function(cpf) {
+export const validateCpf = function(cpf?: string | null) {
     if (validateCpfInputFormat(cpf)) {
         return false;
     }
-    const cpfStripped = removeNonDigitsAllowedChars(cpf);
+    const cpfStripped = removeNonDigitsAllowedChars(cpf!);
     if(validateCpfDigits(cpfStripped)) {
         return false;
     }
@@ -14,45 +14,45 @@ exports.validateCpf = function(cpf) {
     return verificationDigitOne === expectedVerificationDigitOne && verificationDigitTwo === expectedVerificationDigitTwo;
 }
 
-function validateCpfInputFormat(cpf) {
-    return isNullOrUndefined(cpf) || doesNotHaveCpfLength(cpf);
+function validateCpfInputFormat(cpf?: string | null) {
+    return isNullOrUndefined(cpf) || doesNotHaveCpfLength(cpf!);
 }
 
-function validateCpfDigits(cpfStripped) {
+function validateCpfDigits(cpfStripped: string) {
     return isStrWithSameDigits(cpfStripped) || !isOnlyDigitsString(cpfStripped);
 }
 
-function removeNonDigitsAllowedChars(cpf) {
+function removeNonDigitsAllowedChars(cpf: string) {
     return cpf
         .replace('.', '')
         .replace('.', '')
         .replace('-', '')
 }
 
-function calculateVerificationDigitOne(cpfWithoutVerificationDigits) {
+function calculateVerificationDigitOne(cpfWithoutVerificationDigits: string) {
     const calc = Array.from(cpfWithoutVerificationDigits).map(char => parseInt(char)).reduce((acc, digit, i) => acc + (10 - i) * digit, 0);
     const remainder = (calc % 11);
     return (remainder < 2) ? 0 : 11 - remainder;
 }
 
-function calculateVerificationDigitTwo(cpfWithoutVerificationDigits, verificationDigitOne) {
+function calculateVerificationDigitTwo(cpfWithoutVerificationDigits: string, verificationDigitOne: number) {
     const calc = Array.from(cpfWithoutVerificationDigits).map(char => parseInt(char)).concat(verificationDigitOne).reduce((acc, digit, i) => acc + (11 - i) * digit, 0);
     const remainder = (calc % 11);
     return (remainder < 2) ? 0 : 11 - remainder;
 }
 
-function isOnlyDigitsString(cpfStripped) {
+function isOnlyDigitsString(cpfStripped: string) {
     return Array.from(cpfStripped).every(c => !isNaN(parseInt(c)));
 }
 
-function isStrWithSameDigits(cpf) {
+function isStrWithSameDigits(cpf: string) {
     return cpf.split("").every(c => c === cpf[0]);
 }
 
-function doesNotHaveCpfLength(cpf) {
+function doesNotHaveCpfLength(cpf: string) {
     return cpf.length != 11 && cpf.length != 14;
 }
 
-function isNullOrUndefined(cpf) {
+function isNullOrUndefined(cpf?: string | null) {
     return cpf == null || cpf == undefined;
 }
