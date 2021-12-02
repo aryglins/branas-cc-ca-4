@@ -24,6 +24,9 @@ export class Order {
     }
 
     addCoupon(coupon: Coupon) {
+        if(coupon.isExpired()){
+            throw new Error('Coupon expired');
+        }
         this.coupon = coupon;
     } 
 }
