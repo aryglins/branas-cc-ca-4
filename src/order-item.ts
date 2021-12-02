@@ -2,8 +2,8 @@ import { Item } from './item';
 
 export class OrderItem {
     constructor(
-        public item: Item,
-        public quantity: number
+        private item: Item,
+        private quantity: number
     ) { }
 
     getSubTotal() {
