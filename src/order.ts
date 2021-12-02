@@ -23,10 +23,6 @@ export class Order {
         return this.coupon ? total - this.coupon.getDiscountValue(total) : total;
     }
 
-    getCpf() {
-        return this.cpf;
-    }
-
     addCoupon(coupon: Coupon) {
         this.coupon = coupon;
     } 
