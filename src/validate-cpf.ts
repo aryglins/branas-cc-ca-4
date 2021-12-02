@@ -1,4 +1,4 @@
-export const validateCpf = function(cpf?: string | null) {
+export const validateCpf = function(cpf: string) {
     if (validateCpfInputFormat(cpf)) {
         return false;
     }
@@ -14,8 +14,8 @@ export const validateCpf = function(cpf?: string | null) {
     return verificationDigitOne === expectedVerificationDigitOne && verificationDigitTwo === expectedVerificationDigitTwo;
 }
 
-function validateCpfInputFormat(cpf?: string | null) {
-    return isNullOrUndefined(cpf) || doesNotHaveCpfLength(cpf!);
+function validateCpfInputFormat(cpf: string) {
+    return doesNotHaveCpfLength(cpf!);
 }
 
 function validateCpfDigits(cpfStripped: string) {
@@ -51,8 +51,4 @@ function isStrWithSameDigits(cpf: string) {
 
 function doesNotHaveCpfLength(cpf: string) {
     return cpf.length != 11 && cpf.length != 14;
-}
-
-function isNullOrUndefined(cpf?: string | null) {
-    return cpf == null || cpf == undefined;
 }

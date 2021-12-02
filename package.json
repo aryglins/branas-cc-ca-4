@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && jest ./dist",
+    "test": "rm -rf ./dist && tsc && jest ./dist",
     "coverage": "jest --coverage"
   },
   "keywords": [],

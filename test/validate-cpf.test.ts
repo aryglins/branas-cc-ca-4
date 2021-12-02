@@ -18,18 +18,6 @@ test("Deve retornar retornar false para cpf inválido: 935.41a.347-80:", functio
 	expect(result).toBeFalsy();	
 });
 
-test("Deve retornar retornar false para cpf inválido: null:", function () {
-	const cpf = null;
-	const result = validateCpf(cpf);
-	expect(result).toBeFalsy();	
-});
-
-test("Deve retornar retornar false para cpf inválido: undefined:", function () {
-	const cpf = undefined;
-	const result = validateCpf(cpf);
-	expect(result).toBeFalsy();	
-});
-
 test("Deve retornar retornar true para cpf válido: 935.411.347-80:", function () {
 	const cpf = "935.411.347-80";
 	const result = validateCpf(cpf);
