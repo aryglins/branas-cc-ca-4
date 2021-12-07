@@ -3,7 +3,7 @@ import { CPF } from './cpf';
 import { Item } from './item';
 import { OrderItem } from './order-item';
 
-export class Order { 
+export class Order {
     private readonly orderItens: OrderItem[];
     private readonly cpf: CPF;
     private coupon: Coupon | null;
@@ -28,5 +28,9 @@ export class Order {
             throw new Error('Coupon expired');
         }
         this.coupon = coupon;
+    }
+
+    getShippingCost(): number {
+        return this.orderItens.reduce((total, orderItem) => total + orderItem.getShippingCost(), 0);
     } 
 }

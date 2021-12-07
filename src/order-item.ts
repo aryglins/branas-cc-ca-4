@@ -9,4 +9,8 @@ export class OrderItem {
     getSubTotal() {
         return this.item.getPrice() * this.quantity;
     }  
+
+    getShippingCost(): number {
+        return this.quantity * this.item.getShippingCost();
+    }
 }

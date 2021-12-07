@@ -100,6 +100,5 @@
   },
   "include": [
     "./src/**/*.ts",
-    "./test/**/*.ts"
-, "test/order-service.banana"  ]
+    "./test/**/*.ts" ]
 }
