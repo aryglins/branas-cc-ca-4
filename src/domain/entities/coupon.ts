@@ -1,6 +1,6 @@
 export class Coupon {
   constructor(
-    private code: string,
+    readonly code: string,
     private discountPercentage: number,
     private expirationDate: Date
   ) {}

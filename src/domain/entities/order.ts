@@ -18,19 +18,23 @@ export class Order {
         this.orderItens.push(new OrderItem(item, quantity));
     }
 
-    getTotal(){
+    getTotal() {
         const total = this.orderItens.reduce((total, item) => total + item.getSubTotal(), 0);
-        return this.coupon ? total - this.coupon.getDiscountValue(total) : total;
+        return this.applyCouponDisccountIfValid(total) + this.getShippingCost();
     }
 
-    addCoupon(coupon: Coupon) {
+    applyCoupon(coupon: Coupon) {
         if(coupon.isExpired()){
             throw new Error('Coupon expired');
         }
         this.coupon = coupon;
     }
 
-    getShippingCost(): number {
+    private getShippingCost(): number {
         return this.orderItens.reduce((total, orderItem) => total + orderItem.getShippingCost(), 0);
     } 
+
+    private applyCouponDisccountIfValid(total: number) {
+        return this.coupon ? total - this.coupon.getDiscountValue(total) : total;
+    }
 }
