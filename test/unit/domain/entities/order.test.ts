@@ -1,7 +1,8 @@
-import { Coupon } from '../src/coupon';
-import { Item } from '../src/item';
-import { ItemMeasures } from '../src/item-measures';
-import { Order } from '../src/order';
+import { Coupon } from '../../../../src/domain/entities/coupon';
+import { Item } from '../../../../src/domain/entities/item';
+import { ItemMeasures } from '../../../../src/domain/entities/item-measures';
+import { Order } from '../../../../src/domain/entities/order';
+
 const ONE_DAY_IN_MILISSECONDS = 1000 * 60 * 60 * 24;
 
 test("Deve criar um pedido vazio com CPF válido", () => {

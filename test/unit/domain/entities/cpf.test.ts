@@ -1,4 +1,4 @@
-import {CPF} from "../src/cpf";
+import {CPF} from "../../../../src/domain/entities/cpf";
 
 test("Deve lançar erro para cpf inválido com mesmo dígito:", function () {
 	const cpf = "111.111.111-11";
