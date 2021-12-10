@@ -12,12 +12,13 @@ test('Deve fazer um pedido', async() => {
             {id: 2, quantity: 2},
             {id: 3, quantity: 1},
         ],
-        coupon: { code: 'DESCONTO10'}
+        coupon: { code: 'DESCONTO10'},
+        date: new Date('2020-01-01'),
     };
-    const placeOrder = new PlaceOrder(new OrderRepositoryMemory(new Date('2021-01-01')), new ItemRepositoryMemory(), new CouponRepositoryMemory());
+    const placeOrder = new PlaceOrder(new OrderRepositoryMemory(), new ItemRepositoryMemory(), new CouponRepositoryMemory());
     const placeOrderOutput = await placeOrder.execute(placeOrderInput);
     expect(placeOrderOutput).toStrictEqual({
-        code: '202100000000',
+        code: '202000000321',
         total: 1440*0.9 + 70,
     });
 });

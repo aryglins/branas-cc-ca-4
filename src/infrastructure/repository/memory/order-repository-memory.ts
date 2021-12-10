@@ -1,29 +1,19 @@
 import { Order } from '../../../domain/entities/order';
 import OrderRepository from '../../../domain/repositories/order-repository';
 
-
-const CODE_SEQUENCE_LENGTH = 8;
 export default class OrderRepositoryMemory implements OrderRepository {
     private readonly orders: Order[] = [];
-    private readonly currentDate: Date;
-    private orderSequence;
+    private sequence;
 
-    constructor(currentDate?: Date) {
-        this.currentDate = currentDate || new Date();
+    constructor() {
         this.orders = [];
-        this.orderSequence = 0;
+        this.sequence = 321;
     }
 
     save(order: Order): Promise<Order> {
-        order.code = this.currentDate.getUTCFullYear().toString() + this.generateCodeSequence();
+        order.generateCode(this.sequence);
         this.orders.push(order);
+        this.sequence++;
         return Promise.resolve(order);
-    }
-
-    private generateCodeSequence() {
-        const sequence = this.orderSequence.toString();
-        const sequenceWithZeros = sequence.padStart(CODE_SEQUENCE_LENGTH, '0');
-        this.orderSequence++;
-        return sequenceWithZeros;
     }
 }

@@ -14,7 +14,7 @@ export default class PlaceOrder {
   }
 
   public async execute(placeOrderInput: PlaceOrderInput): Promise<PlaceOrderOutput> {
-    const order = new Order(placeOrderInput.cpf);
+    const order = new Order(placeOrderInput.cpf, placeOrderInput.date);
     for(const orderItemsInput of placeOrderInput.orderItems) {
       const item = await this._itemRepository.findBy({ id: orderItemsInput.id });
       if(!item) throw new Error('Item not found');
