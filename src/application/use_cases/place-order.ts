@@ -25,6 +25,6 @@ export default class PlaceOrder {
       if(coupon) order.applyCoupon(coupon);
     } 
     await this._orderRepository.save(order);
-    return Promise.resolve({total: order.getTotal()});
+    return Promise.resolve({total: order.getTotal(), code: order.code});
   }
 }

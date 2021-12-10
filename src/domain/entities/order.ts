@@ -7,6 +7,14 @@ export class Order {
     private readonly orderItens: OrderItem[];
     private readonly cpf: CPF;
     private coupon: Coupon | null;
+    private _code: string | undefined;
+    get code(): string {
+        if(!this._code) throw new Error('Order has no code, maybe it was not persited yet');
+        return this._code;
+    }
+    set code(code: string) {
+        this._code = code;
+    }
 
     constructor(cpf: string) {
         this.cpf = new CPF(cpf);
