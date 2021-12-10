@@ -3,6 +3,7 @@ import ValidateCouponOutput from '../io/validate-coupon-output';
 
 const NOT_FOUND_COUPON_MESSAGE = 'Cupom de desconto inexistente';
 const EXPIRED_COUPON_MESSAGE = 'Cupom de desconto expirado';
+const VALID_COUPON_MESSAGE = 'Cupom de desconto válido';
 export default class ValidateCoupon {
     constructor(private readonly couponRepository: CouponRepository) {}
 
@@ -10,6 +11,6 @@ export default class ValidateCoupon {
         const coupon = await this.couponRepository.findBy({code: couponCode});
         if(!coupon) return Promise.resolve({isValid: false, message: NOT_FOUND_COUPON_MESSAGE});
         if(coupon.isExpired()) return Promise.resolve({isValid: false, message: EXPIRED_COUPON_MESSAGE});
-        return Promise.resolve({isValid: true, message: 'Cupom de desconto válido'});
+        return Promise.resolve({isValid: true, message: VALID_COUPON_MESSAGE});
     }
 }
