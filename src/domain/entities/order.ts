@@ -28,7 +28,7 @@ export class Order {
 
     getTotal() {
         const total = this.orderItens.reduce((total, item) => total + item.getSubTotal(), 0);
-        return this.applyCouponDisccountIfValid(total) + this.getShippingCost();
+        return this.applyCouponDisccountIfValid(total) + this.calculateShippingCost();
     }
 
     applyCoupon(coupon: Coupon) {
@@ -38,7 +38,7 @@ export class Order {
         this.coupon = coupon;
     }
 
-    private getShippingCost(): number {
+    calculateShippingCost(): number {
         return this.orderItens.reduce((total, orderItem) => total + orderItem.getShippingCost(), 0);
     } 
 
