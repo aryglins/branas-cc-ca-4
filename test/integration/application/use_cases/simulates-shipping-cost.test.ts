@@ -1,5 +1,5 @@
-import SimulatesShippingCost from '../../../../src/application/use_cases/simulates-shipping-cost';
-import ItemRepositoryMemory from '../../../../src/infrastructure/repository/item-repository-memory';
+import SimulatesShippingCost from '../../../../src/application/use-cases/simulates-shipping-cost';
+import ItemRepositoryMemory from '../../../../src/infrastructure/repository/memory/item-repository-memory';
 
 test('Deve simular preço do frete', async () => {
     const simulatedShippingCostInput = {

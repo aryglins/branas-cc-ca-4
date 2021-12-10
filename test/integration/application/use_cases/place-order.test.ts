@@ -1,8 +1,8 @@
 import PlaceOrderInput from '../../../../src/application/io/place-order-input';
-import PlaceOrder from '../../../../src/application/use_cases/place-order';
-import CouponRepositoryMemory from '../../../../src/infrastructure/repository/coupon-repository-memory';
-import ItemRepositoryMemory from '../../../../src/infrastructure/repository/item-repository-memory';
-import OrderRepositoryMemory from '../../../../src/infrastructure/repository/order-repository-memory';
+import PlaceOrder from '../../../../src/application/use-cases/place-order';
+import CouponRepositoryMemory from '../../../../src/infrastructure/repository/memory/coupon-repository-memory';
+import ItemRepositoryMemory from '../../../../src/infrastructure/repository/memory/item-repository-memory';
+import OrderRepositoryMemory from '../../../../src/infrastructure/repository/memory/order-repository-memory';
 
 test('Deve fazer um pedido', async() => {
     const placeOrderInput: PlaceOrderInput = {

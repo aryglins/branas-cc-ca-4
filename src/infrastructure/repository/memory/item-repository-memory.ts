@@ -1,6 +1,7 @@
-import { Item } from '../../domain/entities/item';
-import { ItemMeasures } from '../../domain/entities/item-measures';
-import ItemRepository from '../../domain/repositories/item-repository';
+import { Item } from '../../../domain/entities/item';
+import { ItemMeasures } from '../../../domain/entities/item-measures';
+import ItemRepository from '../../../domain/repositories/item-repository';
+
 
 export default class ItemRepositoryMemory implements ItemRepository {
     private readonly Items: Item[];

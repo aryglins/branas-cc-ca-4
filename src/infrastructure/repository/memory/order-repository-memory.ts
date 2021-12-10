@@ -1,6 +1,6 @@
-import { Item } from '../../domain/entities/item';
-import { Order } from '../../domain/entities/order';
-import OrderRepository from '../../domain/repositories/order-repository';
+import { Order } from '../../../domain/entities/order';
+import OrderRepository from '../../../domain/repositories/order-repository';
+
 
 const CODE_SEQUENCE_LENGTH = 8;
 export default class OrderRepositoryMemory implements OrderRepository {
