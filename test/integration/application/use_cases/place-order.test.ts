@@ -18,7 +18,7 @@ test('Deve fazer um pedido', async() => {
     const placeOrder = new PlaceOrder(new OrderRepositoryMemory(), new ItemRepositoryMemory(), new CouponRepositoryMemory());
     const placeOrderOutput = await placeOrder.execute(placeOrderInput);
     expect(placeOrderOutput).toStrictEqual({
-        code: '202000000321',
+        code: '202000000001',
         total: 1440*0.9 + 70,
     });
 });

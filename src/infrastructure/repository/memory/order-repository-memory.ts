@@ -7,13 +7,15 @@ export default class OrderRepositoryMemory implements OrderRepository {
 
     constructor() {
         this.orders = [];
-        this.sequence = 321;
+        this.sequence = 1;
     }
 
     save(order: Order): Promise<Order> {
-        order.generateCode(this.sequence);
         this.orders.push(order);
-        this.sequence++;
         return Promise.resolve(order);
+    }
+
+    seqNextVal(): number {
+        return this.sequence++;
     }
 }
