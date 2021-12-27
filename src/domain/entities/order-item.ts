@@ -2,12 +2,12 @@ import { Item } from './item';
 
 export class OrderItem {
     constructor(
-        private item: Item,
-        private quantity: number
+        readonly item: Item,
+        readonly quantity: number
     ) { }
 
     getSubTotal() {
-        return this.item.getPrice() * this.quantity;
+        return this.item.price * this.quantity;
     }  
 
     getShippingCost(): number {

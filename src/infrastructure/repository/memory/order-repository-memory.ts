@@ -10,6 +10,10 @@ export default class OrderRepositoryMemory implements OrderRepository {
         this.sequence = 1;
     }
 
+    findBy(options: { code: string }): Promise<Order | undefined> {
+        return Promise.resolve(this.orders.find(order => order.code === options.code));
+    }
+
     save(order: Order): Promise<Order> {
         this.orders.push(order);
         return Promise.resolve(order);

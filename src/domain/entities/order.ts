@@ -5,7 +5,7 @@ import { OrderItem } from './order-item';
 
 const CODE_SEQUENCE_LENGTH = 8;
 export class Order {
-    private readonly orderItens: OrderItem[];
+    private readonly orderItems: OrderItem[];
     private readonly cpf: CPF;
     private coupon: Coupon | null;
     private _code: string | undefined;
@@ -16,18 +16,22 @@ export class Order {
     private date: Date;
     constructor(cpf: string, date?: Date) {
         this.cpf = new CPF(cpf);
-        this.orderItens = [];
+        this.orderItems = [];
         this.coupon = null;
         this.date = date || new Date();
     }
-
-    addItem(item: Item, quantity: number) {
-        this.orderItens.push(new OrderItem(item, quantity));
+    
+    getTotal() {
+        const total = this.orderItems.reduce((total, item) => total + item.getSubTotal(), 0);
+        return this.applyCouponDisccountIfValid(total) + this.calculateShippingCost();
     }
 
-    getTotal() {
-        const total = this.orderItens.reduce((total, item) => total + item.getSubTotal(), 0);
-        return this.applyCouponDisccountIfValid(total) + this.calculateShippingCost();
+    getOrderItems(): OrderItem[] {
+        return [...this.orderItems];
+    }
+    
+    addItem(item: Item, quantity: number) {
+        this.orderItems.push(new OrderItem(item, quantity));
     }
 
     applyCoupon(coupon: Coupon) {
@@ -38,7 +42,7 @@ export class Order {
     }
 
     calculateShippingCost(): number {
-        return this.orderItens.reduce((total, orderItem) => total + orderItem.getShippingCost(), 0);
+        return this.orderItems.reduce((total, orderItem) => total + orderItem.getShippingCost(), 0);
     }
 
     generateCode(sequence: number): void {

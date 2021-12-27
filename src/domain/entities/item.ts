@@ -2,7 +2,7 @@ import { ItemMeasures } from './item-measures';
 
 const MIN_SHIPPING_COST_PRICE = 10;
 export class Item {
-    public constructor(readonly id:number, private readonly decription: string, private readonly price: number, private readonly itemMeasures?: ItemMeasures) {}
+    public constructor(readonly id:number, readonly decription: string, readonly price: number, readonly itemMeasures?: ItemMeasures) {}
 
     getPrice() {
         return this.price;
