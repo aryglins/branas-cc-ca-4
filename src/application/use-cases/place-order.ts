@@ -1,5 +1,6 @@
 import { Item } from '../../domain/entities/item';
 import { Order } from '../../domain/entities/order';
+import RepositoryFactory from '../../domain/factories/repository-factory';
 import CouponRepository from '../../domain/repositories/coupon-repository';
 import ItemRepository from '../../domain/repositories/item-repository';
 import OrderRepository from '../../domain/repositories/order-repository';
@@ -8,9 +9,13 @@ import PlaceOrderOutput from '../io/place-order-output';
 
 export default class PlaceOrder {
   private _orderRepository: OrderRepository;
+  private _itemRepository: ItemRepository;
+  private _couponRepository: CouponRepository;
 
-  constructor(orderRepository: OrderRepository, private _itemRepository: ItemRepository, private _couponRepository: CouponRepository) {
-    this._orderRepository = orderRepository;
+  constructor(repositoryFactory: RepositoryFactory) {
+    this._orderRepository = repositoryFactory.createOrderRepository();
+    this._itemRepository = repositoryFactory.createItemRepository();
+    this._couponRepository = repositoryFactory.createCouponRepository();
   }
 
   public async execute(placeOrderInput: PlaceOrderInput): Promise<PlaceOrderOutput> {
