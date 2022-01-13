@@ -1,11 +1,11 @@
 export class CPF {
-    private cpf: string;
+    readonly value: string;
 
     constructor(cpf: string) {
         if(!this.validateCpf(cpf)) {
             throw new Error('Invalid CPF');
         }
-        this.cpf = cpf;
+        this.value = cpf;
     }
 
     private validateCpf (cpf: string) {

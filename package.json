@@ -10,9 +10,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "pg": "^8.7.1"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.3",
+    "@types/pg": "^8.6.4",
     "@types/sinon": "^10.0.6",
     "jest": "^27.4.3",
     "sinon": "^12.0.1",

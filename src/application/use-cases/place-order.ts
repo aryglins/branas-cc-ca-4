@@ -29,7 +29,7 @@ export default class PlaceOrder {
       const coupon = await this._couponRepository.findBy({ code: placeOrderInput.coupon.code });
       if(coupon) order.applyCoupon(coupon);
     }
-    order.generateCode(this._orderRepository.seqNextVal());
+    order.generateCode(await this._orderRepository.seqNextVal());
     await this._orderRepository.save(order);
     return Promise.resolve({total: order.getTotal(), code: order.code});
   }

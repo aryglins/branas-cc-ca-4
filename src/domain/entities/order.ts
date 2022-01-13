@@ -6,18 +6,24 @@ import { OrderItem } from './order-item';
 const CODE_SEQUENCE_LENGTH = 8;
 export class Order {
     private readonly orderItems: OrderItem[];
-    private readonly cpf: CPF;
-    private coupon: Coupon | null;
+    private readonly _cpf: CPF;
+    get cpf(): string {
+        return this._cpf.value;
+    }
+    private _coupon: Coupon | null;
+    get coupon(): Coupon | null {
+        return this._coupon;
+    }
     private _code: string | undefined;
     get code(): string {
         if(!this._code) throw new Error('Order has no code, maybe it was not persited yet');
         return this._code;
     }
-    private date: Date;
-    constructor(cpf: string, date?: Date) {
-        this.cpf = new CPF(cpf);
-        this.orderItems = [];
-        this.coupon = null;
+    readonly date: Date;
+    constructor(cpf: string, date?: Date, orderItems?: OrderItem[]) {
+        this._cpf = new CPF(cpf);
+        this.orderItems = orderItems ?? [];
+        this._coupon = null;
         this.date = date || new Date();
     }
     
@@ -38,7 +44,7 @@ export class Order {
         if(coupon.isExpired()){
             throw new Error('Coupon expired');
         }
-        this.coupon = coupon;
+        this._coupon = coupon;
     }
 
     calculateShippingCost(): number {
@@ -51,6 +57,6 @@ export class Order {
     }
     
     private applyCouponDisccountIfValid(total: number) {
-        return this.coupon ? total - this.coupon.getDiscountValue(total) : total;
+        return this._coupon ? total - this._coupon.getDiscountValue(total) : total;
     }
 }

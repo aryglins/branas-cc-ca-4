@@ -4,7 +4,7 @@ import createFakeOrder from "./fake-order.factory";
 
 test("Deve buscar pedido pelo código", async () => {
   const orderRepository = new OrderRepositoryMemory();
-  const seqNextVal = orderRepository.seqNextVal();
+  const seqNextVal = await orderRepository.seqNextVal();
   const order = createFakeOrder({
     sequence: seqNextVal,
     cpf: "123.456.789-09",

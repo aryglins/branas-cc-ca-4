@@ -4,7 +4,7 @@ import createFakeOrder from "./fake-order.factory";
 
 test("Deve retornar lista de pedidos", async () => {
   const orderRepository = new OrderRepositoryMemory();
-  const sequence1 = orderRepository.seqNextVal();
+  const sequence1 = await orderRepository.seqNextVal();
   const order1 = createFakeOrder({
     sequence: sequence1,
     cpf: "123.456.789-09",
@@ -19,7 +19,7 @@ test("Deve retornar lista de pedidos", async () => {
       },
     ],
   });
-  const squence2 = orderRepository.seqNextVal();
+  const squence2 = await orderRepository.seqNextVal();
   const order2 = createFakeOrder({
     sequence: squence2,
     cpf: "123.456.789-09",

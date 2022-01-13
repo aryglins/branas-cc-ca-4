@@ -8,8 +8,8 @@ export default class CouponRepositoryMemory implements CouponRepository {
         const couponExpirationDate = new Date();
         couponExpirationDate.setDate(couponExpirationDate.getDate() + 1); // tomorrow
         this.coupons = [
-            new Coupon('DESCONTO10', 0.1, couponExpirationDate), 
-            new Coupon('DESCONTO102020', 0.1, new Date('2020-12-31')),
+            new Coupon(1, 'DESCONTO10', 0.1, couponExpirationDate), 
+            new Coupon(2, 'DESCONTO102020', 0.1, new Date('2020-12-31')),
         ];
     }
 

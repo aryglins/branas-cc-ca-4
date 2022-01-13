@@ -29,7 +29,7 @@ test("Deve criar um pedido com cupom de desconto válido", () => {
     order.addItem(new Item(2, "Monitor", 200), 2);
     order.addItem(new Item(3, "Mouse", 40), 1);
     const futureDate = new Date(new Date().getTime() + ONE_DAY_IN_MILISSECONDS);
-    order.applyCoupon(new Coupon("DESCONTO10", 0.1, futureDate));
+    order.applyCoupon(new Coupon(1, "DESCONTO10", 0.1, futureDate));
     expect(order.getTotal()).toBe(1440 - (1440 * 0.1));
 });
 
@@ -39,7 +39,7 @@ test("Não criar um pedido com cupom de desconto expirado", () => {
     order.addItem(new Item(2, "Monitor", 200), 2);
     order.addItem(new Item(3, "Mouse", 40), 1);
     const pastDate = new Date(new Date().getTime() - ONE_DAY_IN_MILISSECONDS);
-    expect(() => order.applyCoupon(new Coupon("DESCONTO10", 0.1, pastDate))).toThrow(new Error('Coupon expired'));
+    expect(() => order.applyCoupon(new Coupon(1, "DESCONTO10", 0.1, pastDate))).toThrow(new Error('Coupon expired'));
 });
 
 test("Deve calcular o valor do frete com base nas dimensões (altura, largura e profundidade em cm) e o peso dos produtos (em kg)", () => {
