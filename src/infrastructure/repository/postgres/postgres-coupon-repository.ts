@@ -21,7 +21,7 @@ export default class PostgresCouponRepository implements CouponRepository {
         return new Coupon(
             coupon.id,
             coupon.code,
-            coupon.discount_percentage,
+            coupon.discount,
             new Date(coupon.expiration_date),
         );
     }

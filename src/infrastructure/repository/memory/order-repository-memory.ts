@@ -26,4 +26,8 @@ export default class OrderRepositoryMemory implements OrderRepository {
     seqNextVal(): Promise<number> {
         return Promise.resolve(this.sequence++);
     }
+
+    count(): Promise<number> {
+        return Promise.resolve(this.orders.length);
+    }
 }

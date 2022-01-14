@@ -5,4 +5,5 @@ export default interface OrderRepository {
     findAll(): Promise<Order[]>;
     save(order: Order): Promise<Order>;
     seqNextVal(): Promise<number>;
+    count (): Promise<number>;
 }

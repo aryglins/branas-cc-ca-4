@@ -9,6 +9,9 @@ import PostgresOrderRepository from '../repository/postgres/postgres-order-repos
 
 export default class PostgresRepositoryFactory implements RepositoryFactory {
     private readonly db: Pool;
+    private readonly orderRepository;
+    private readonly itemRepository;
+    private readonly couponRepository;
 
     constructor() {
         this.db = new Pool({
@@ -19,17 +22,20 @@ export default class PostgresRepositoryFactory implements RepositoryFactory {
                 database: 'database',
             }
         );
+        this.orderRepository = new PostgresOrderRepository(this.db);
+        this.itemRepository = new PostgresItemRepository(this.db);
+        this.couponRepository = new PostgresCouponRepository(this.db);
     }
 
     public createOrderRepository(): OrderRepository {
-        return new PostgresOrderRepository(this.db);
+        return this.orderRepository;
     }
 
     public createItemRepository(): ItemRepository {
-        return new PostgresItemRepository(this.db);
+        return this.itemRepository;
     }
 
     public createCouponRepository(): CouponRepository {
-        return new PostgresCouponRepository(this.db);
+        return this.couponRepository;
     }
 }

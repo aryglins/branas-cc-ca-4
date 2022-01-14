@@ -29,6 +29,7 @@ export class Order {
     
     getTotal() {
         const total = this.orderItems.reduce((total, item) => total + item.getSubTotal(), 0);
+        console.log(total);
         return this.applyCouponDisccountIfValid(total) + this.calculateShippingCost();
     }
 
@@ -52,8 +53,12 @@ export class Order {
     }
 
     generateCode(sequence: number): void {
+        this._code = Order.generateCode(sequence, this.date);
+    }
+
+    static generateCode(sequence: number, date: Date): string {
         const sequenceWithZeros = sequence.toString().padStart(CODE_SEQUENCE_LENGTH, '0');
-        this._code = `${this.date.getUTCFullYear()}${sequenceWithZeros}`;
+        return `${date.getUTCFullYear()}${sequenceWithZeros}`;
     }
     
     private applyCouponDisccountIfValid(total: number) {

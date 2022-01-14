@@ -7,6 +7,7 @@ export class Coupon {
   ) {}
 
   getDiscountValue(total: number): number {
+    console.log(this.discountPercentage);
     return total * this.discountPercentage;
   }
 

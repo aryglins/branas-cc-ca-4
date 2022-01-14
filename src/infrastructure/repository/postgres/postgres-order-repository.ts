@@ -37,19 +37,22 @@ export default class PostgresOrderRepository implements OrderRepository {
     }
 
     public async save(order: Order): Promise<Order> {
-        const result = await this.db.query(
+        const orderResult = await this.db.query(
             `INSERT INTO ccca.orders (cpf, date, code, coupon_id) VALUES ($1, $2, $3, $4) RETURNING *`,
             [order.cpf, order.date, order.code, order.coupon?.id],
         );
+
+        let orderItemResult;
         for(const orderItem of order.getOrderItems()) {
-            await this.db.query(
+            orderItemResult = await this.db.query(
                 `INSERT INTO ccca.order_items (order_id, item_id, quantity) VALUES ($1, $2, $3)`,
-                [result.rows[0].id, orderItem.item.id, orderItem.quantity],
+                [orderResult.rows[0].id, orderItem.item.id, orderItem.quantity],
             );
         }
         return new Order(
-            result.rows[0].cpf,
-            result.rows[0].date,
+            orderResult.rows[0].cpf,
+            orderResult.rows[0].date,
+            orderItemResult?.rows.map((orderItem: any) => (new OrderItem(orderItem.item, orderItem.quantity))),
         );
     }
     
@@ -58,5 +61,12 @@ export default class PostgresOrderRepository implements OrderRepository {
             `SELECT nextval('ccca.orders_code_seq')`,
         );
         return result.rows[0].nextval;
+    }
+
+    public async count(): Promise<number> {
+        const result = await this.db.query(
+            `SELECT COUNT(*) FROM ccca.orders`,
+        );
+        return Number(result.rows[0].count);
     }
 }

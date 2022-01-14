@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS ccca.orders (
 );
 
 -- Creation of order_item table
-CREATE TABLE IF NOT EXISTS ccca.order_items (
+CREATE TABLE IF NOT EXISTS ccca.order_items (\l
   id SERIAL,
   order_id INT NOT NULL,
   item_id INT NOT NULL,
@@ -54,5 +54,5 @@ insert into ccca.items (id, description, price, heigth, width, depth, weight) va
 insert into ccca.items (id, description, price, heigth, width, depth, weight) values (2, 'Monitor', 200.00, 30.00, 40.00, 5.00, 2.50);
 insert into ccca.items (id, description, price, heigth, width, depth, weight) values (3, 'Mouse', 40.00, 10.00, 5.00, 2.00, 0.03);
 
-insert into ccca.coupons (id, code, discount, expiration_date) values (1, 'DESCONTO10', 0.10, CURRENT_DATE + INTERVAL '1 day');
+insert into ccca.coupons (id, code, discount, expiration_date) values (1, 'DESCONTO10', 0.10, CURRENT_DATE + INTERVAL '10 day');
 insert into ccca.coupons (id, code, discount, expiration_date) values (2, 'DESCONTO102020', 0.10, '2020-12-31');

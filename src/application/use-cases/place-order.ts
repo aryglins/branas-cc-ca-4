@@ -23,6 +23,7 @@ export default class PlaceOrder {
     for(const orderItemsInput of placeOrderInput.orderItems) {
       const item = await this._itemRepository.findBy({ id: orderItemsInput.id });
       if(!item) throw new Error('Item not found');
+      console.log(item.getPrice())
       order.addItem(item, orderItemsInput.quantity);
     }
     if(placeOrderInput.coupon) {
