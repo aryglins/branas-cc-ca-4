@@ -29,7 +29,6 @@ export class Order {
     
     getTotal() {
         const total = this.orderItems.reduce((total, item) => total + item.getSubTotal(), 0);
-        console.log(total);
         return this.applyCouponDisccountIfValid(total) + this.calculateShippingCost();
     }
 

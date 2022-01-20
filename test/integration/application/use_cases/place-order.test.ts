@@ -10,7 +10,7 @@ import OrderRepositoryMemory from '../../../../src/infrastructure/repository/mem
 test('Deve fazer um pedido', async() => {
     const repositoryFactory = new PostgresRepositoryFactory();
     const orderRepository = repositoryFactory.createOrderRepository();
-    const orderCodeSequence = await orderRepository.count() + 1;
+    const orderCodeSequence = await orderRepository.count() + 2;
     const orderDate = new Date('2020-01-01');
     const placeOrderInput: PlaceOrderInput = {
         cpf: '123.456.789-09',

@@ -23,7 +23,6 @@ export default class PlaceOrder {
     for(const orderItemsInput of placeOrderInput.orderItems) {
       const item = await this._itemRepository.findBy({ id: orderItemsInput.id });
       if(!item) throw new Error('Item not found');
-      console.log(item.getPrice())
       order.addItem(item, orderItemsInput.quantity);
     }
     if(placeOrderInput.coupon) {
@@ -32,6 +31,6 @@ export default class PlaceOrder {
     }
     order.generateCode(await this._orderRepository.seqNextVal());
     await this._orderRepository.save(order);
-    return Promise.resolve({total: order.getTotal(), code: order.code});
+    return {total: order.getTotal(), code: order.code};
   }
 }

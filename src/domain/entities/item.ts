@@ -13,7 +13,6 @@ export class Item {
             return 0;
         }
         const shippingCost = 1000 * this.itemMeasures.getVolume() * this.itemMeasures.getDensity()/100;
-        console.log(shippingCost);
         return shippingCost < MIN_SHIPPING_COST_PRICE ? MIN_SHIPPING_COST_PRICE : shippingCost;
     } 
 }

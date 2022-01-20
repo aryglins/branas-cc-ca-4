@@ -1,16 +1,20 @@
 {
-  "name": "refactoring_example",
+  "name": "branas_ccca4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "rm -rf ./dist && tsc && jest ./dist",
-    "coverage": "rm -rf ./dist && tsc && jest --coverage ./dist"
+    "coverage": "rm -rf ./dist && tsc && jest --coverage ./dist",
+    "main": "tsc && node ./dist/src/main"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/express": "^4.17.13",
+    "axios": "^0.25.0",
+    "express": "^4.17.2",
     "pg": "^8.7.1"
   },
   "devDependencies": {
